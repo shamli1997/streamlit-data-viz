@@ -12,6 +12,9 @@ st.markdown(
     .tile {
         background-color: #444444;
         box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
     }
     </style>
     """,
@@ -40,13 +43,12 @@ total_waste_max_year = yearly_waste.max()
 st.title("Waste Dashboard")
 
 # Upper portion - Tile with the year and amount of waste
-with st.beta_container():
-    st.subheader("Year with Most Waste")
-    with st.beta_columns(1):
-        st.markdown(
-            f'<div class="tile"><h2>{year_with_max_waste}</h2><h3>Total Waste (lbs)</h3><p>{total_waste_max_year}</p></div>',
-            unsafe_allow_html=True
-        )
+st.subheader("Year with Most Waste")
+with st.beta_columns(1):
+    st.markdown(
+        f'<div class="tile"><h2>{year_with_max_waste}</h2><h3>Total Waste (lbs)</h3><p>{total_waste_max_year}</p></div>',
+        unsafe_allow_html=True
+    )
 
 # Lower portion - Visualization (e.g., bar chart)
 st.subheader("Total Waste Generated in Each Year")
