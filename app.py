@@ -103,6 +103,68 @@ def find_waste_by_stream():
     return landfill_waste, recycling_waste, compost_waste
 
 
+import streamlit as st
+
+def create_container(heading, icon, large_text, medium_text):
+    container = st.container()
+    container.image(icon, use_column_width=True)
+    container.markdown(f"## {heading}")
+    container.markdown(f"**{large_text}**")
+    container.markdown(medium_text)
+
+# 1st Container
+with st.container():
+    st.markdown("## Year with highest waste")
+    st.image("https://static.streamlit.io/examples/cat.jpg", use_column_width=True)
+    st.markdown("**The year**")
+    st.markdown("Amount of waste in lbs")
+
+# 2nd Container
+with st.container():
+    st.markdown("## Year with highest waste")
+    st.image("https://static.streamlit.io/examples/cat.jpg", use_column_width=True)
+    st.markdown("**The building name**")
+    st.markdown("Amount of waste in lbs")
+
+# 3rd Container
+with st.container():
+    st.markdown("## Waste proportion in year 2016")
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("## Landfill")
+        st.image("https://static.streamlit.io/examples/cat.jpg", use_column_width=True)
+        st.markdown("Amount of waste in lbs")
+        
+    with col2:
+        st.markdown("## Recycle")
+        st.image("https://static.streamlit.io/examples/cat.jpg", use_column_width=True)
+        st.markdown("Amount of waste in lbs")
+        
+    with col3:
+        st.markdown("## Compost")
+        st.image("https://static.streamlit.io/examples/cat.jpg", use_column_width=True)
+        st.markdown("Amount of waste in lbs")
+
+# 4th Container
+with st.container():
+    st.markdown("## Waste proportion in Malley building")
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("## Landfill")
+        st.image("landfill_icon.png", use_column_width=True)
+        st.markdown("Amount of waste in lbs")
+        
+    with col2:
+        st.markdown("## Recycle")
+        st.image("recycle_icon.png", use_column_width=True)
+        st.markdown("Amount of waste in lbs")
+        
+    with col3:
+        st.markdown("## Compost")
+        st.image("compost_icon.png", use_column_width=True)
+        st.markdown("Amount of waste in lbs")
 
 
 # Row A
