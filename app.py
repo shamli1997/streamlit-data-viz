@@ -103,7 +103,6 @@ def find_waste_by_stream():
     return landfill_waste, recycling_waste, compost_waste
 
 
-import streamlit as st
 
 def create_container(heading, icon, large_text, medium_text):
     container = st.container()
@@ -111,6 +110,9 @@ def create_container(heading, icon, large_text, medium_text):
     container.markdown(f"## {heading}")
     container.markdown(f"**{large_text}**")
     container.markdown(medium_text)
+ # Create a horizontal layout
+row_container = st.container()
+row_container.markdown('<style>div.row-widget.stHorizontal>div{flex-basis: auto !important}</style>', unsafe_allow_html=True)
 
 # 1st Container
 with st.container():
