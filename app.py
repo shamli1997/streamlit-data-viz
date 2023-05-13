@@ -44,6 +44,18 @@ st.title("Waste Dashboard")
 
 # Upper portion - Tile with the year and amount of waste
 st.subheader("Year with Most Waste")
+# Upper portion - Tile with the year and amount of waste
+with st.beta_container():
+    st.subheader("Year with Most Waste")
+    with st.beta_container():
+        st.markdown(
+            f'<div class="tile"><h2>{year_with_max_waste}</h2><h3>Total Waste (lbs)</h3><p>{total_waste_max_year}</p></div>',
+            unsafe_allow_html=True
+        )
+
+# Lower portion - Visualization (e.g., bar chart)
+st.subheader("Total Waste Generated in Each Year")
+st.bar_chart(yearly_waste)
 col1, col2, col3 = st.columns(3)
 
 with col1:
