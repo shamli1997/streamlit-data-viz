@@ -9,7 +9,7 @@ st.markdown(
         background-color: #222222;
         color: #ffffff;
     }
-    .stMetric {
+    .tile {
         background-color: #444444;
         box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
     }
@@ -39,16 +39,15 @@ total_waste_max_year = yearly_waste.max()
 # Create a Streamlit app
 st.title("Waste Dashboard")
 
-# Create a layout with two columns
-col1, col2 = st.columns(2)
-
 # Upper portion - Tile with the year and amount of waste
-with col1:
+with st.beta_container():
     st.subheader("Year with Most Waste")
-    st.metric("Year", year_with_max_waste)
-    st.metric("Total Waste (lbs)", total_waste_max_year)
+    with st.beta_container():
+        st.markdown(
+            f'<div class="tile"><h2>{year_with_max_waste}</h2><h3>Total Waste (lbs)</h3><p>{total_waste_max_year}</p></div>',
+            unsafe_allow_html=True
+        )
 
 # Lower portion - Visualization (e.g., bar chart)
-with col2:
-    st.subheader("Total Waste Generated in Each Year")
-    st.bar_chart(yearly_waste)
+st.subheader("Total Waste Generated in Each Year")
+st.bar_chart(yearly_waste)
