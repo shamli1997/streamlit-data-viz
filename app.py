@@ -76,7 +76,7 @@ def find_waste_by_building_and_year(year):
 # Row A
 st.markdown('### Metrics')
 year_with_max_waste, total_waste_max_year = getMostWasteYearandWaste()
-building_with_most_waste, waste_generated = find_building_with_most_waste(year_with_max_waste)
+building_with_most_waste, waste_generated = find_waste_by_building_and_year(year_with_max_waste)
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Year which generated most waste", year_with_max_waste,total_waste_max_year)
 col2.metric("Building which generated most waste", building_with_most_waste, waste_generated)
