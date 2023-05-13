@@ -72,15 +72,51 @@ def find_waste_by_building_and_year(year):
     return building_with_most_waste, str(total_waste_generated) + " lbs"
 
 
+def find_waste_by_stream():
+    # Create a DataFrame from the data
+    df = pd.DataFrame(data, columns=['Date', 'Building', 'Stream', 'Substream', 'Volume', 'Weight', 'Notes'])
+    
+    # Convert the 'Date' column to datetime type
+    df['Date'] = pd.to_datetime(df['Date'])
+    
+    # Extract the year from the 'Date' column
+    df['Year'] = df['Date'].dt.year
+    
+    # Group the data by 'Year' and 'Stream' and calculate the sum of 'Weight'
+    grouped_data = df.groupby(['Year', 'Stream'])['Weight'].sum().reset_index()
+    
+    # Find the year with the highest waste generation
+    year_with_most_waste = grouped_data.loc[grouped_data['Weight'].idxmax(), 'Year']
+    
+    # Filter the data for the year with the highest waste generation
+    filtered_data = df[df['Year'] == year_with_most_waste]
+    
+    # Group the filtered data by 'Stream' and calculate the sum of 'Weight'
+    waste_by_stream = filtered_data.groupby('Stream')['Weight'].sum().reset_index()
+    
+    # Get the amounts of landfill, recycling, and compost waste
+    landfill_waste = waste_by_stream.loc[waste_by_stream['Stream'] == 'Landfill', 'Weight'].values[0]
+    recycling_waste = waste_by_stream.loc[waste_by_stream['Stream'] == 'Recycling', 'Weight'].values[0]
+    compost_waste = waste_by_stream.loc[waste_by_stream['Stream'] == 'Compost', 'Weight'].values[0]
+    
+    return landfill_waste, recycling_waste, compost_waste
+
+
+
 
 # Row A
 st.markdown('### Metrics')
 year_with_max_waste, total_waste_max_year = getMostWasteYearandWaste()
 building_with_most_waste, waste_generated = find_waste_by_building_and_year(year_with_max_waste)
+landfill_waste, recycling_waste, compost_waste = find_waste_by_stream()
+
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Year which generated most waste", year_with_max_waste,total_waste_max_year)
 col2.metric("Building which generated most waste", building_with_most_waste, waste_generated)
-col3.metric("Waste proportion in 2016", "86%", "4%")
+col3.metric("Waste proportion in 2016")
+col3.metric("Landfill Waste",landfill_waste )
+col3.metric("Recycling Waste", recycling_waste)
+col3.metric("Compost Waste", compost_waste)
 col4.metric("Waste proportion in Swig Building", "86%", "4%")
 
 # Row B
