@@ -27,10 +27,11 @@ Created with ❤️ by [Data Professor](https://youtube.com/dataprofessor/).
 
 # Row A
 st.markdown('### Metrics')
-col1, col2, col3 = st.columns(3)
-col1.metric("Temperature", "70 °F", "1.2 °F")
-col2.metric("Wind", "9 mph", "-8%")
-col3.metric("Humidity", "86%", "4%")
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Year which generated most waste", "70 °F", "1.2 °F")
+col2.metric("Building which generated most waste", "9 mph", "-8%")
+col3.metric("Waste proportion in 2016", "86%", "4%")
+col3.metric("Waste proportion in Swig Building", "86%", "4%")
 
 # Row B
 seattle_weather = pd.read_csv('https://raw.githubusercontent.com/tvst/plost/master/data/seattle-weather.csv', parse_dates=['date'])
