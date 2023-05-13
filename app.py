@@ -47,7 +47,7 @@ def getMostWasteYearandWaste():
 st.markdown('### Metrics')
 year_with_max_waste, total_waste_max_year = getMostWasteYearandWaste()
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Year which generated most waste", year_with_max_waste, total_waste_max_year+" lbs")
+col1.metric("Year which generated most waste", year_with_max_waste, "amount of waste generated in (lbs)",total_waste_max_year)
 col2.metric("Building which generated most waste", "9 mph", "-8%")
 col3.metric("Waste proportion in 2016", "86%", "4%")
 col4.metric("Waste proportion in Swig Building", "86%", "4%")
