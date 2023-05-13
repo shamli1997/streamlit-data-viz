@@ -1,59 +1,63 @@
 import streamlit as st
 import pandas as pd
+import plost
 
-# Apply custom CSS styles
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #222222;
-        color: #ffffff;
-    }
-    .tile {
-        background-color: #444444;
-        box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 
-# Read the CSV file
-data = pd.read_csv("assign2_wastedata.csv")
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    
+st.sidebar.header('Dashboard `version 2`')
 
-# Convert the 'Date' column to datetime format
-data['Date'] = pd.to_datetime(data['Date'], infer_datetime_format=True)
+st.sidebar.subheader('Heat map parameter')
+time_hist_color = st.sidebar.selectbox('Color by', ('temp_min', 'temp_max')) 
 
-# Extract the year from the 'Date' column
-data['Year'] = data['Date'].dt.year
+st.sidebar.subheader('Donut chart parameter')
+donut_theta = st.sidebar.selectbox('Select data', ('q2', 'q3'))
 
-# Group the data by year and calculate the total waste for each year
-yearly_waste = data.groupby('Year')['Weight'].sum()
+st.sidebar.subheader('Line chart parameters')
+plot_data = st.sidebar.multiselect('Select data', ['temp_min', 'temp_max'], ['temp_min', 'temp_max'])
+plot_height = st.sidebar.slider('Specify plot height', 200, 500, 250)
 
-# Find the year with the maximum waste
-year_with_max_waste = yearly_waste.idxmax()
-
-# Get the total waste in the year with the maximum waste
-total_waste_max_year = yearly_waste.max()
-
-# Create a Streamlit app
-st.title("Waste Dashboard")
-
-# Create a layout with two columns
-col1, col2 = st.columns(2)
-
-# Upper portion - Tile with the year and amount of waste
-with col1:
-    st.subheader("Year with Most Waste")
-    st.metric("Year", year_with_max_waste)
-    st.metric("Total Waste (lbs)", total_waste_max_year)
-
-# Lower portion - Visualization (e.g., bar chart)
-with col2:
-    st.subheader("Total Waste Generated in Each Year")
-    st.bar_chart(yearly_waste)
+st.sidebar.markdown('''
+---
+Created with ❤️ by [Data Professor](https://youtube.com/dataprofessor/).
+''')
 
 
+# Row A
+st.markdown('### Metrics')
+col1, col2, col3 = st.columns(3)
+col1.metric("Temperature", "70 °F", "1.2 °F")
+col2.metric("Wind", "9 mph", "-8%")
+col3.metric("Humidity", "86%", "4%")
+
+# Row B
+seattle_weather = pd.read_csv('https://raw.githubusercontent.com/tvst/plost/master/data/seattle-weather.csv', parse_dates=['date'])
+stocks = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/stocks_toy.csv')
+
+c1, c2 = st.columns((7,3))
+with c1:
+    st.markdown('### Heatmap')
+    plost.time_hist(
+    data=seattle_weather,
+    date='date',
+    x_unit='week',
+    y_unit='day',
+    color=time_hist_color,
+    aggregate='median',
+    legend=None,
+    height=345,
+    use_container_width=True)
+with c2:
+    st.markdown('### Donut chart')
+    plost.donut_chart(
+        data=stocks,
+        theta=donut_theta,
+        color='company',
+        legend='bottom', 
+        use_container_width=True)
+
+# Row C
+st.markdown('### Line chart')
+st.line_chart(seattle_weather, x = 'date', y = plot_data, height = plot_height)
