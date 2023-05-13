@@ -43,8 +43,6 @@ total_waste_max_year = yearly_waste.max()
 st.title("Waste Dashboard")
 
 # Upper portion - Tile with the year and amount of waste
-st.subheader("Year with Most Waste")
-# Upper portion - Tile with the year and amount of waste
 with st.beta_container():
     st.subheader("Year with Most Waste")
     with st.beta_container():
