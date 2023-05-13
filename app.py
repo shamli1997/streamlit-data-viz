@@ -44,7 +44,7 @@ st.title("Waste Dashboard")
 
 # Upper portion - Tile with the year and amount of waste
 st.subheader("Year with Most Waste")
-with with st.columns(1):
+with st.columns(1):
     st.markdown(
         f'<div class="tile"><h2>{year_with_max_waste}</h2><h3>Total Waste (lbs)</h3><p>{total_waste_max_year}</p></div>',
         unsafe_allow_html=True
