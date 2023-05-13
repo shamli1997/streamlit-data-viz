@@ -24,11 +24,30 @@ st.sidebar.markdown('''
 Created with ❤️ by [Data Professor](https://youtube.com/dataprofessor/).
 ''')
 
+def getMostWasteYearandWaste():
+    # Read the CSV file
+    data = pd.read_csv("assign2_wastedata.csv")
 
+    # Convert the 'Date' column to datetime format
+    data['Date'] = pd.to_datetime(data['Date'], infer_datetime_format=True)
+
+    # Extract the year from the 'Date' column
+    data['Year'] = data['Date'].dt.year
+
+    # Group the data by year and calculate the total waste for each year
+    yearly_waste = data.groupby('Year')['Weight'].sum()
+
+    # Find the year with the maximum waste
+    year_with_max_waste = yearly_waste.idxmax()
+
+    # Get the total waste in the year with the maximum waste
+    total_waste_max_year = yearly_waste.max()
+    return year_with_max_waste, total_waste_max_year
 # Row A
 st.markdown('### Metrics')
+year_with_max_waste, total_waste_max_year = getMostWasteYearandWaste()
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Year which generated most waste", "70 °F", "1.2 °F")
+col1.metric("Year which generated most waste", year_with_max_waste, total_waste_max_year)
 col2.metric("Building which generated most waste", "9 mph", "-8%")
 col3.metric("Waste proportion in 2016", "86%", "4%")
 col4.metric("Waste proportion in Swig Building", "86%", "4%")
