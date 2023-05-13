@@ -118,7 +118,7 @@ row_container.markdown('<style>div.row-widget.stHorizontal>div{flex-basis: auto 
 with row_container:
     with st.container():
         st.markdown("## Year with highest waste")
-        st.image("https://static.streamlit.io/examples/cat.jpg", use_column_width=True)
+        st.image("calendar.jpg", use_column_width=True)
         st.markdown("**The year**")
         st.markdown("Amount of waste in lbs")
 
