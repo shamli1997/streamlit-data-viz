@@ -42,14 +42,18 @@ total_waste_max_year = yearly_waste.max()
 # Create a Streamlit app
 st.title("Waste Dashboard")
 
+# Create a layout with two columns
+col1, col2 = st.columns(2)
+
 # Upper portion - Tile with the year and amount of waste
-st.subheader("Year with Most Waste")
-with st.columns(1):
-    st.markdown(
-        f'<div class="tile"><h2>{year_with_max_waste}</h2><h3>Total Waste (lbs)</h3><p>{total_waste_max_year}</p></div>',
-        unsafe_allow_html=True
-    )
+with col1:
+    st.subheader("Year with Most Waste")
+    st.metric("Year", year_with_max_waste)
+    st.metric("Total Waste (lbs)", total_waste_max_year)
 
 # Lower portion - Visualization (e.g., bar chart)
-st.subheader("Total Waste Generated in Each Year")
-st.bar_chart(yearly_waste)
+with col2:
+    st.subheader("Total Waste Generated in Each Year")
+    st.bar_chart(yearly_waste)
+
+
