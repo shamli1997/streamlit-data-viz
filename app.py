@@ -110,14 +110,15 @@ year_with_max_waste, total_waste_max_year = getMostWasteYearandWaste()
 building_with_most_waste, waste_generated = find_waste_by_building_and_year(year_with_max_waste)
 landfill_waste, recycling_waste, compost_waste = find_waste_by_stream()
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 col1.metric("Year which generated most waste", year_with_max_waste,total_waste_max_year)
 col2.metric("Building which generated most waste", building_with_most_waste, waste_generated)
-col3.metric("Waste proportion in 2016")
-col3.metric("Landfill Waste",landfill_waste )
-col3.metric("Recycling Waste", recycling_waste)
-col3.metric("Compost Waste", compost_waste)
-col4.metric("Waste proportion in Swig Building", "86%", "4%")
+
+with st.container():
+   st.write("This is inside the container")
+
+   # You can call any Streamlit command, including custom components:
+   st.bar_chart(np.random.randn(50, 3))
 
 # Row B
 seattle_weather = pd.read_csv('https://raw.githubusercontent.com/tvst/plost/master/data/seattle-weather.csv', parse_dates=['date'])
