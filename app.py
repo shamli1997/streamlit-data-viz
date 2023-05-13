@@ -40,7 +40,7 @@ def getMostWasteYearandWaste():
 
     # Get the total waste in the year with the maximum waste
     total_waste_max_year = yearly_waste.max()
-    return year_with_max_waste, total_waste_max_year
+    return year_with_max_waste, str(total_waste_max_year) + " lbs"
 
 
 
@@ -69,7 +69,7 @@ def find_waste_by_building_and_year(year):
     # Calculate the total amount of waste generated in the specified year for the building
     total_waste_generated = grouped_data.loc[grouped_data['Building'] == building_with_most_waste, 'Weight'].values[0]
     
-    return building_with_most_waste, total_waste_generated
+    return building_with_most_waste, str(total_waste_generated) + " lbs"
 
 
 
