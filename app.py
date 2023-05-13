@@ -40,7 +40,7 @@ total_waste_max_year = yearly_waste.max()
 st.title("Waste Dashboard")
 
 # Create a layout with two columns
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
 
 # Upper portion - Tile with the year and amount of waste
 with col1:
